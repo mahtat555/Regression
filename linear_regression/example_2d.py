@@ -42,10 +42,15 @@ def gradient_descent(data_x, data_y, parameters, learn_rate, nb_iterations):
 
     """
 
+    # Cost history
+    cost_tracking = np.zeros(nb_iterations)
+
     for _i in range(nb_iterations):
         parameters -= learn_rate * gradient(data_x, data_y, parameters)
+        # recording the cost for each iteration
+        cost_tracking[_i] = cost_function(data_x, data_y, parameters)
 
-    return parameters
+    return parameters, cost_tracking
 
 
 def main():
@@ -91,11 +96,14 @@ def main():
     ####################
     ##    training    ##
     ####################
-    learn_rate = 0.01
+    # learning rate
+    learn_rate = 0.005
+    # number of iterations
+    number_iterations = 1_000
 
     # final parameters for our model
-    final_params = gradient_descent(
-        data_x, data_y, init_params, learn_rate, nb_iterations=1_000)
+    final_params, cost_tracking = gradient_descent(
+        data_x, data_y, init_params, learn_rate, number_iterations)
 
     # final model
     final_model = model(data_x, final_params)
@@ -112,6 +120,10 @@ def main():
     ##########################
     ##    learning curve    ##
     ##########################
+    # plot Cost history
+    plt.subplot(2, 2, 4)
+    plt.title("cost tracking")
+    plt.plot(range(number_iterations), cost_tracking)
 
     plt.show()
 
