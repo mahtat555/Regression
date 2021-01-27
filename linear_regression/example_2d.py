@@ -53,6 +53,17 @@ def gradient_descent(data_x, data_y, parameters, learn_rate, nb_iterations):
     return parameters, cost_tracking
 
 
+def coefficient_determination(data_y, prediction):
+    """ Coefficient of determination.
+
+    This function measures the quality of the prediction of linear regression.
+
+    """
+    sum_numerator = np.sum((data_y - prediction) ** 2)
+    sum_denominator = np.sum((data_y - prediction.mean()) ** 2)
+    return 1 - sum_numerator / sum_denominator
+
+
 def main():
     """ Example of linear regression
 
@@ -124,6 +135,11 @@ def main():
     plt.subplot(2, 2, 4)
     plt.title("cost tracking")
     plt.plot(range(number_iterations), cost_tracking)
+
+    ########################################
+    ##    Coefficient of determination    ##
+    ########################################
+    print(coefficient_determination(data_y, final_model))
 
     plt.show()
 
