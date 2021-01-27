@@ -56,13 +56,15 @@ def main():
     ##    Dataset    ##
     ###################
     # (X, y)  m = 100, n = 1
-    data_x, data_y = make_regression(n_samples=100, n_features=1, noise=10)
+    _data_x, data_y = make_regression(n_samples=100, n_features=1, noise=10)
 
     # show the data
-    plt.scatter(data_x, data_y)
+    plt.subplot(2, 2, 1)
+    plt.title("dataset")
+    plt.scatter(_data_x, data_y)
 
     # Writing the equations in the matrix form
-    data_x = np.hstack((data_x, np.ones(data_x.shape)))
+    data_x = np.hstack((_data_x, np.ones(_data_x.shape)))
     data_y = data_y.reshape(data_y.shape[0], 1)
 
     #################
@@ -74,18 +76,42 @@ def main():
     # initial model
     init_model = model(data_x, init_params)
 
-    # show initial model
-    plt.plot(data_x, init_model, c='r')
+    # plot initial model
+    plt.subplot(2, 2, 2)
+    plt.title("initial model")
+    plt.scatter(_data_x, data_y)
+    plt.plot(_data_x, init_model, c='g')
 
     #########################
     ##    cost function    ##
     #########################
-    # show cost function for initial params
+    # show cost function for initial parameters
     print(cost_function(data_x, data_y, init_params))
 
     ####################
     ##    training    ##
     ####################
+    learn_rate = 0.01
+
+    # final parameters for our model
+    final_params = gradient_descent(
+        data_x, data_y, init_params, learn_rate, nb_iterations=1_000)
+
+    # final model
+    final_model = model(data_x, final_params)
+
+    # show cost function for final parameters
+    print(cost_function(data_x, data_y, final_params))
+
+    # plot final model
+    plt.subplot(2, 2, 3)
+    plt.title("final model")
+    plt.scatter(_data_x, data_y)
+    plt.plot(_data_x, final_model, c='r')
+
+    ##########################
+    ##    learning curve    ##
+    ##########################
 
     plt.show()
 
