@@ -74,12 +74,13 @@ def main():
     # (X, y)  m = 100, n = 1
     _data_x, data_y = make_regression(n_samples=100, n_features=1, noise=10)
 
-    # show the data
+    # show the dataset
     plt.subplot(2, 2, 1)
     plt.title("dataset")
     plt.scatter(_data_x, data_y)
 
-    # Writing the equations in the matrix form
+    # Transform the dataset into matrices.
+    # That is used for writing the equations in the matrix form.
     data_x = np.hstack((_data_x, np.ones(_data_x.shape)))
     data_y = data_y.reshape(data_y.shape[0], 1)
 
