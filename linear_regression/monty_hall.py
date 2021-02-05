@@ -14,6 +14,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+# Two constants or two strategies used by the player (the player can
+# choose one of them) in this game.
+
 CHANGED = "Change"
 KEEP = "Keep"
 
@@ -46,6 +49,7 @@ def main():
     # List of numbers of turns in this game
     list_n_times = list(range(1, 10_000, 10))
 
+    # In these lists, we will save the results of the simulation
     results_changed, results_keep = [], []
 
     for n_times in list_n_times:
